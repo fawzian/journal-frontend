@@ -36,9 +36,22 @@ function App() {
   // Functions
   //////////////
 
+  // gets todos from api
+
+const getEntries = async () => {
+  const response = await fetch(url);
+  const data = await respinse.json();
+  setEntry(data)
+};
+
   //////////////
   // useEffects
   //////////////
+
+  // runs getEntries functions once when page is loaded
+  useEffect(() => {
+    getEntries();
+  },[]);
 
   /////////////////////
   // returned JSX
