@@ -40,7 +40,7 @@ function App() {
 
 const getEntries = async () => {
   const response = await fetch(url);
-  const data = await respinse.json();
+  const data = await response.json();
   setEntry(data)
 };
 
