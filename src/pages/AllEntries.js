@@ -1,7 +1,8 @@
 import React from "react";
+import Entry from "../components/entry";
 
 const AllEntries = (props) => {
-    return <h1>allEntries</h1>
+    return props.entry.map((entry) => <Entry entry={entry} key={entry.id}/>)
 };
 
 export default AllEntries;
