@@ -64,11 +64,11 @@ const getEntries = async () => {
         <Route 
         exact
         path="/"
-        render={(routerProps) => <AllEntries {...routerProps} entry={entry}/> }
+        render={(routerProps) => <AllEntries {...routerProps} entry={entry} /> }
        />
        <Route 
-        path="/post/:id"
-        renter={(routerProps) => <SingleEntry {...routerProps} entry={entry}/>}
+        path="/entry/:id"
+        render={(routerProps) => <SingleEntry {...routerProps} entry={entry} />}
        />
        <Route 
         path="/new"
