@@ -91,6 +91,17 @@ const updateEntry = async (entry) => {
   getEntries();
 };
 
+// delete function
+
+const deleteEntry = async (entry) => {
+  const response = await fetch(url + entry.id + "/", {
+    method: "delete",
+  });
+
+  // get updated list
+  getEntries();
+  props.history.push("/");
+};
   //////////////
   // useEffects
   //////////////
@@ -116,7 +127,7 @@ const updateEntry = async (entry) => {
        />
        <Route 
         path="/entry/:id"
-        render={(routerProps) => <SingleEntry {...routerProps} entry={entry} edit={getTargetEntry} />}
+        render={(routerProps) => <SingleEntry {...routerProps} entry={entry} edit={getTargetEntry} deleteEntry={deleteEntry}/>}
        />
        <Route 
         path="/new"
