@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 // import components from react router
 import { Route, Switch, Link } from "react-router-dom";
 
-function App() {
+function App(props) {
 
   ////////////////////
   // Style Objects
@@ -43,6 +43,9 @@ function App() {
     body: "",
   };
 
+  // state for edit journal entry
+  const [targetEntry, setTargetEntry] = useState(nullEntry)
+
   //////////////
   // Functions
   //////////////
@@ -67,8 +70,26 @@ const addEntries = async (newEntry) => {
   });
   // updated list of entries
   getEntries();
-}
+};
 
+// selecting the entry you want to update
+const getTargetEntry = (entry) => {
+  setTargetEntry(entry);
+  props.history.push("/edit")
+};
+
+// funtion to edit the entry on the form submission
+const updateEntry = async (entry) => {
+  const response = await fetch(url + entry.id + "/", {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(entry),
+  });
+  // updated list of all journal entries
+  getEntries();
+};
 
   //////////////
   // useEffects
@@ -95,7 +116,7 @@ const addEntries = async (newEntry) => {
        />
        <Route 
         path="/entry/:id"
-        render={(routerProps) => <SingleEntry {...routerProps} entry={entry} />}
+        render={(routerProps) => <SingleEntry {...routerProps} entry={entry} edit={getTargetEntry} />}
        />
        <Route 
         path="/new"
@@ -108,7 +129,12 @@ const addEntries = async (newEntry) => {
        />
        <Route 
         path="/edit"
-        render={(routerProps) => <Form {...routerProps} />}
+        render={(routerProps) => <Form 
+          {...routerProps}
+          initialEntry={targetEntry}
+          handleSubmit={updateEntry}
+          buttonLabel="Update Journal Entry"
+          />}
        />
       </Switch>
     </div>

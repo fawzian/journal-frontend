@@ -6,9 +6,11 @@ const Form = ({ initialEntry, handleSubmit, buttonLabel, history}) => {
     const [formData, setFormData] = useState(initialEntry);
 
     // functions 
+
     const handleChange = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
       };
+
 
     const handleSubmission = (event) => {
         // prevent refresh
