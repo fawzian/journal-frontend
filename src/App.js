@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 
 
 // import components from react router
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 
 function App() {
 
@@ -19,6 +19,12 @@ function App() {
   const h1 = {
     textAlign: "center",
     margin: "10px",
+  };
+  
+  const button = {
+    backgroundColor: "navy",
+    display: "block",
+    margin: "auto",
   };
 
   ///////////////
@@ -31,6 +37,11 @@ function App() {
   // State to Hold The List of Posts
   const [entry, setEntry] = useState([]);
 
+  // null entry object
+  const nullEntry = {
+    title: "",
+    body: "",
+  };
 
   //////////////
   // Functions
@@ -43,6 +54,21 @@ const getEntries = async () => {
   const data = await response.json();
   setEntry(data)
 };
+
+// function that adds an
+
+const addEntries = async (newEntry) => {
+  const response = await fetch(url, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    }, 
+    body: JSON.stringify(newEntry)
+  });
+  // updated list of entries
+  getEntries();
+}
+
 
   //////////////
   // useEffects
@@ -60,6 +86,7 @@ const getEntries = async () => {
   return (
     <div className="App">
       <h1 style={h1}>My Journal Entries</h1>
+      <Link to="/new"><button style={button}>Create New Entry</button></Link>
       <Switch>
         <Route 
         exact
@@ -72,7 +99,12 @@ const getEntries = async () => {
        />
        <Route 
         path="/new"
-        render={(routerProps) => <Form {...routerProps} /> }
+        render={(routerProps) => (<Form 
+          {...routerProps}
+          initialEntry={nullEntry} 
+          handleSubmit={addEntries}
+          buttonLabel="create journal entry"
+          /> )}
        />
        <Route 
         path="/edit"
