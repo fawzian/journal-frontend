@@ -32,7 +32,7 @@ function App(props) {
   ///////////////
 
   // Our Api Url
-  const url = "https://journal-backend-fn.herokuapp.com/posts/";
+  const url = "https://journal-backend-fn.herokuapp.com/entries/";
 
   // State to Hold The List of Posts
   const [entry, setEntry] = useState([]);
